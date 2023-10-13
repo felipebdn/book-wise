@@ -1,21 +1,21 @@
-import { CommentRepository } from '../repositories/comment-repository'
+import { RatingRepository } from '../repositories/comment-repository'
 import { CommentBookUseCase } from './comment-book'
 
-const fakeCommentRepository: CommentRepository = {
+const fakeCommentRepository: RatingRepository = {
   create: async () => {
     return
   },
 }
 
-test('Comment a book', async () => {
+test('Rating a book', async () => {
   const commentBook = new CommentBookUseCase(fakeCommentRepository)
 
-  const { comment } = await commentBook.execute({
+  const { rating } = await commentBook.execute({
     assessment: 5,
     bookId: 'book-id',
-    comment: 'Comment of book',
+    comment: 'Rating of book',
     readerId: 'reader-id',
   })
 
-  expect(comment).toEqual('Comment of book')
+  expect(rating.comment).toEqual('Rating of book')
 })

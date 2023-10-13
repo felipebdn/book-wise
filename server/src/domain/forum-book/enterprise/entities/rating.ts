@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-interface CommentProps {
+interface RatingProps {
   bookId: UniqueEntityID
   readerId: UniqueEntityID
   comment: string
@@ -11,7 +11,7 @@ interface CommentProps {
   updatedAt?: Date
 }
 
-export class Comment extends Entity<CommentProps> {
+export class Rating extends Entity<RatingProps> {
   private touch() {
     this.props.updatedAt = new Date()
   }
@@ -55,10 +55,10 @@ export class Comment extends Entity<CommentProps> {
   }
 
   static create(
-    props: Optional<CommentProps, 'createdAt'>,
+    props: Optional<RatingProps, 'createdAt'>,
     id?: UniqueEntityID,
   ) {
-    const comment = new Comment(
+    const rating = new Rating(
       {
         ...props,
         createdAt: new Date(),
@@ -66,6 +66,6 @@ export class Comment extends Entity<CommentProps> {
       id,
     )
 
-    return comment
+    return rating
   }
 }

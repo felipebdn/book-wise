@@ -1,5 +1,5 @@
-import { Comment } from '../../enterprise/entities/comment'
+import { Rating } from '../../enterprise/entities/rating'
 
-export interface CommentRepository {
-  create(comment: Comment): Promise<void>
+export interface RatingRepository {
+  create(rating: Rating): Promise<void>
 }
