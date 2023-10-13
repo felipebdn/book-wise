@@ -1,12 +1,13 @@
 import { InMemoryRatingRepository } from 'test/repositories/in-memeory-rating-repository'
 import { CreateRatingUseCase } from './comment-on-book'
 import { InMemoryBookRepository } from 'test/repositories/in-memory-book-repository'
+import { makeBook } from 'test/factories/make-book'
 
 let inMemoryRatingRepository: InMemoryRatingRepository
 let inMemoryBookRepository: InMemoryBookRepository
 let sut: CreateRatingUseCase
 
-describe('Create rating book', async () => {
+describe('Create rating on book', async () => {
   beforeEach(() => {
     inMemoryRatingRepository = new InMemoryRatingRepository()
     inMemoryBookRepository = new InMemoryBookRepository()
@@ -17,9 +18,11 @@ describe('Create rating book', async () => {
   })
 
   it('should be able to create rating a book', async () => {
+    const book = makeBook()
+
     const { rating } = await sut.execute({
       assessment: 5,
-      bookId: 'book-id',
+      bookId: book.id.toString(),
       comment: 'Rating of book',
       readerId: 'reader-id',
     })

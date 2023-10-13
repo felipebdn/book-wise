@@ -19,7 +19,7 @@ export class GetRatingByBookIdUseCase {
     page,
     amount,
   }: GetRatingByBookIdUseCaseRequest): Promise<GetRatingByBookIdUseCaseResponse> {
-    const ratings = await this.ratingRepository.findManyRatingByBookId(bookId, {
+    const ratings = await this.ratingRepository.findManyByBookId(bookId, {
       page,
       amount,
     })

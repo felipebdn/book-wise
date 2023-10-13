@@ -5,10 +5,15 @@ import { Rating } from '@/domain/forum-book/enterprise/entities/rating'
 export class InMemoryRatingRepository implements RatingRepository {
   public items: Rating[] = []
 
-  async findManyRatingByBookId(
-    bookId: string,
-    { page, amount }: PaginationParams,
-  ) {
+  async findMany({ amount, page }: PaginationParams) {
+    const ratigns = this.items
+      .sort((a, b) => b.createdAt.getDate() - a.createdAt.getDate())
+      .slice((page - 1) * amount, page * amount)
+
+    return ratigns
+  }
+
+  async findManyByBookId(bookId: string, { page, amount }: PaginationParams) {
     const ratigns = this.items
       .filter((item) => item.bookId.toString() === bookId)
       .sort((a, b) => b.createdAt.getDate() - a.createdAt.getDate())

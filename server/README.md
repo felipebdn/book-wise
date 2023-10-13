@@ -1,6 +1,6 @@
 # use cases / requisitos funcionais
   DDD ???
-- [ ] [ ] Deve ser possível visualizar as avaliações mais recentes.
+- [x] [ ] Deve ser possível visualizar as avaliações mais recentes.
 - [ ] [ ] Deve ser possível buscar por um livro para avaliar.
 - [ ] [ ] Deve ser possível visualizar os livros mais bem avaliados.
 - [ ] [ ] Deve ser possível visualizar minha última avalialção.1

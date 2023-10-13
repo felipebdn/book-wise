@@ -8,11 +8,7 @@ export function makeBook(
 ) {
   const rating = Book.create(
     {
-      assessment: faker.number.int({
-        min: 1,
-        max: 5,
-      }),
-      comment: faker.lorem.text(),
+      author: faker.person.firstName(),
       ...override,
     },
     id,
