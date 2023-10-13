@@ -61,7 +61,7 @@ export class Rating extends Entity<RatingProps> {
     const rating = new Rating(
       {
         ...props,
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     )

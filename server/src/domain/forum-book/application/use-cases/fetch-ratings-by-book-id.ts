@@ -3,6 +3,8 @@ import { RatingRepository } from '../repositories/rating-repository'
 
 interface GetRatingByBookIdUseCaseRequest {
   bookId: string
+  page: number
+  amount: number
 }
 
 interface GetRatingByBookIdUseCaseResponse {
@@ -14,8 +16,13 @@ export class GetRatingByBookIdUseCase {
 
   async execute({
     bookId,
+    page,
+    amount,
   }: GetRatingByBookIdUseCaseRequest): Promise<GetRatingByBookIdUseCaseResponse> {
-    const ratings = await this.ratingRepository.findByBookId(bookId)
+    const ratings = await this.ratingRepository.findManyRatingByBookId(bookId, {
+      page,
+      amount,
+    })
 
     return { ratings }
   }

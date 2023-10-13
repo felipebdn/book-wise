@@ -1,8 +1,28 @@
+import { PaginationParams } from '@/core/repositories/pagination-params'
 import { RatingRepository } from '@/domain/forum-book/application/repositories/rating-repository'
 import { Rating } from '@/domain/forum-book/enterprise/entities/rating'
 
 export class InMemoryRatingRepository implements RatingRepository {
   public items: Rating[] = []
+
+  async findManyRatingByBookId(
+    bookId: string,
+    { page, amount }: PaginationParams,
+  ) {
+    const ratigns = this.items
+      .filter((item) => item.bookId.toString() === bookId)
+      .sort((a, b) => b.createdAt.getDate() - a.createdAt.getDate())
+      .slice((page - 1) * amount, page * amount)
+
+    /**
+     * @example
+     * page = 1
+     * amount = 20
+     * .slice((page - 1) * amount, page * amount) retorn first 20 ratings of list.
+     *
+     */
+    return ratigns
+  }
 
   async findById(ratingId: string) {
     const rating = this.items.find((item) => item.id.toString() === ratingId)
@@ -10,13 +30,6 @@ export class InMemoryRatingRepository implements RatingRepository {
       return null
     }
     return rating
-  }
-
-  async findByBookId(bookId: string) {
-    const ratigns = this.items.filter(
-      (item) => item.bookId.toString() === bookId,
-    )
-    return ratigns
   }
 
   async save(rating: Rating) {
