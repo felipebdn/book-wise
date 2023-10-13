@@ -1,19 +1,19 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Rating } from '../../enterprise/entities/rating'
-import { RatingRepository } from '../repositories/comment-repository'
+import { RatingRepository } from '../repositories/rating-repository'
 
-interface CommentBookUseCaseRequest {
+interface RatingBookUseCaseRequest {
   bookId: string
   readerId: string
   comment: string
   assessment: number
 }
 
-interface CommentBookUseCaseResponse {
+interface RatingBookUseCaseResponse {
   rating: Rating
 }
 
-export class CommentBookUseCase {
+export class RatingBookUseCase {
   constructor(private ratingRepository: RatingRepository) {}
 
   async execute({
@@ -21,7 +21,7 @@ export class CommentBookUseCase {
     bookId,
     comment,
     readerId,
-  }: CommentBookUseCaseRequest): Promise<CommentBookUseCaseResponse> {
+  }: RatingBookUseCaseRequest): Promise<RatingBookUseCaseResponse> {
     const rating = Rating.create({
       assessment,
       comment,
