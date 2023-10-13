@@ -1,7 +1,11 @@
 export class TextComment {
   public value: string
-  constructor(value: string) {
+  private constructor(value: string) {
     this.value = value
+  }
+
+  static create(comment: string) {
+    return new TextComment(comment)
   }
 
   /**

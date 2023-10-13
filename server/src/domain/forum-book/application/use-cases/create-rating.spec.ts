@@ -1,13 +1,13 @@
 import { InMemoryRatingRepository } from 'test/repositories/in-memeory-rating-repository'
-import { RatingBookUseCase } from './rating-book'
+import { CreateRatingUseCase } from './create-rating'
 
 let inMemoryRatingRepository: InMemoryRatingRepository
-let sut: RatingBookUseCase
+let sut: CreateRatingUseCase
 
 describe('Create rating book', async () => {
   beforeEach(() => {
     inMemoryRatingRepository = new InMemoryRatingRepository()
-    sut = new RatingBookUseCase(inMemoryRatingRepository)
+    sut = new CreateRatingUseCase(inMemoryRatingRepository)
   })
 
   it('should be able to create rating a book', async () => {
