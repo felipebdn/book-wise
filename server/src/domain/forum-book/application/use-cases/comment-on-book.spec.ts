@@ -20,6 +20,8 @@ describe('Create rating on book', async () => {
   it('should be able to create rating a book', async () => {
     const book = makeBook()
 
+    await inMemoryBookRepository.create(book)
+
     const { rating } = await sut.execute({
       assessment: 5,
       bookId: book.id.toString(),
