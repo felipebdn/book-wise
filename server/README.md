@@ -5,7 +5,7 @@
 - [ ] [ ] Deve ser possível visualizar os livros mais bem avaliados.
 - [ ] [ ] Deve ser possível visualizar minha última avalialção.1
 - [ ] [ ] Deve ser possível listar livros por categoria.
-- [ ] [ ] Deve ser possível buscar todas as avaliações de um determinado livro.
+- [x] [ ] Deve ser possível buscar todas as avaliações de um determinado livro.
 - [x] [ ] Deve ser possível fazer uma avaliação de um livro.2
 - [x] [ ] Deve ser possível editar uma avaliação.3
 - [x] [ ] Deve ser possível excluir uma avaliação.4

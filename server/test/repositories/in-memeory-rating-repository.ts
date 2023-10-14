@@ -5,6 +5,14 @@ import { Rating } from '@/domain/forum-book/enterprise/entities/rating'
 export class InMemoryRatingRepository implements RatingRepository {
   public items: Rating[] = []
 
+  async findManyBestRate(params: PaginationParams) {
+    console.log(params)
+
+    const bestRate = this.items.sort((a, b) => b.assessment - a.assessment)
+
+    return bestRate
+  }
+
   async findMany({ amount, page }: PaginationParams) {
     const ratigns = this.items
       .sort((a, b) => b.createdAt.getDate() - a.createdAt.getDate())
