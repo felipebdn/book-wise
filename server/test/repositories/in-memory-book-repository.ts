@@ -4,6 +4,10 @@ import { Book } from '@/domain/forum-book/enterprise/entities/book'
 export class InMemoryBookRepository implements BookRepository {
   public items: Book[] = []
 
+  async findManyById(bookId: string[]): Promise<Book[]> {
+    throw new Error('Method not implemented.')
+  }
+
   async findById(bookId: string) {
     const book = this.items.find((item) => item.id.toString() === bookId)
     if (!book) {

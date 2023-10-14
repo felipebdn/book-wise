@@ -1,7 +1,6 @@
 import { InMemoryRatingRepository } from 'test/repositories/in-memeory-rating-repository'
 import { InMemoryBookRepository } from 'test/repositories/in-memory-book-repository'
 import { FetchBestRatedBooks } from './fetch-best-rated-books'
-import { makeBook } from 'test/factories/make-book'
 
 let inMemoryRatingRepository: InMemoryRatingRepository
 let inMemoryBookRepository: InMemoryBookRepository
