@@ -10,7 +10,7 @@ export function makeBook(
     {
       author: [faker.person.firstName()],
       categories: [faker.person.firstName()],
-      cover: faker.lorem.slug({ max: 50, min: 10 }),
+      cover: faker.lorem.slug({ max: 10, min: 10 }),
       pages: faker.number.int({ max: 500 }),
       title: faker.person.jobTitle(),
       ...override,

@@ -2,8 +2,8 @@
   DDD ???
 - [x] [ ] Deve ser possível visualizar as avaliações mais recentes.
 - [ ] [ ] Deve ser possível buscar por um livro para avaliar.
-- [ ] [ ] Deve ser possível visualizar os livros mais bem avaliados.
-- [ ] [ ] Deve ser possível visualizar minha última avalialção.1
+- [x] [ ] Deve ser possível visualizar os livros mais bem avaliados.
+- [x] [ ] Deve ser possível visualizar minha última avalialção.1
 - [ ] [ ] Deve ser possível listar livros por categoria.
 - [x] [ ] Deve ser possível buscar todas as avaliações de um determinado livro.
 - [x] [ ] Deve ser possível fazer uma avaliação de um livro.2

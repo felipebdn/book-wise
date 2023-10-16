@@ -5,7 +5,11 @@ export class InMemoryBookRepository implements BookRepository {
   public items: Book[] = []
 
   async findManyById(bookId: string[]): Promise<Book[]> {
-    throw new Error('Method not implemented.')
+    const foundBooks = this.items.filter((item) =>
+      bookId.includes(item.id.toString()),
+    )
+
+    return foundBooks
   }
 
   async findById(bookId: string) {

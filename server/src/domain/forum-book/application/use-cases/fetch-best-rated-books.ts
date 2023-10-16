@@ -21,14 +21,20 @@ export class FetchBestRatedBooks {
     amount,
     page,
   }: FetchBestRatedBooksRequest): Promise<FetchBestRatedBooksResponse> {
-    const ratings = await this.ratingRepository.findManyBestRate({
-      amount,
-      page,
-    })
+    const booksIds = await this.ratingRepository.getBestMediaRate()
 
-    const books = await this.bookRepository.findManyById(
-      ratings.map((item) => item.bookId.toString()),
+    const getBooks = await this.bookRepository.findManyById(
+      booksIds.map((item) => item.bookId),
     )
+
+    const books = booksIds
+      .map((item) => {
+        const currentIndex = getBooks.findIndex(
+          (i) => i.id.toString() === item.bookId,
+        )
+        return getBooks[currentIndex]
+      })
+      .slice((page - 1) * amount, page * amount)
 
     return { books }
   }

@@ -2,15 +2,47 @@ import { PaginationParams } from '@/core/repositories/pagination-params'
 import { RatingRepository } from '@/domain/forum-book/application/repositories/rating-repository'
 import { Rating } from '@/domain/forum-book/enterprise/entities/rating'
 
+interface BookRating {
+  totalAssessment: number
+  count: number
+}
+
 export class InMemoryRatingRepository implements RatingRepository {
   public items: Rating[] = []
 
-  async findManyBestRate(params: PaginationParams) {
-    console.log(params)
+  async getLastByReaderId(readerId: string) {
+    const ratigns = this.items
+      .filter((item) => item.readerId.toString() === readerId)
+      .sort((a, b) => b.createdAt.getDate() - a.createdAt.getDate())
 
-    const bestRate = this.items.sort((a, b) => b.assessment - a.assessment)
+    return ratigns[0]
+  }
 
-    return bestRate
+  async getBestMediaRate() {
+    const bookRatings: { [key: string]: BookRating } = {}
+
+    this.items.forEach(({ bookId, assessment }) => {
+      if (bookRatings[bookId.toString()]) {
+        bookRatings[bookId.toString()].totalAssessment += assessment
+        bookRatings[bookId.toString()].count++
+      } else {
+        bookRatings[bookId.toString()] = {
+          totalAssessment: assessment,
+          count: 1,
+        }
+      }
+    })
+
+    const sortedBooks = Object.keys(bookRatings).map((bookId: string) => ({
+      bookId,
+      averageAssessment: Math.round(
+        bookRatings[bookId].totalAssessment / bookRatings[bookId].count,
+      ),
+    }))
+
+    sortedBooks.sort((a, b) => b.averageAssessment - a.averageAssessment)
+
+    return sortedBooks
   }
 
   async findMany({ amount, page }: PaginationParams) {

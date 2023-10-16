@@ -1,10 +1,16 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { Rating } from '../../enterprise/entities/rating'
 
+interface BookRating {
+  bookId: string
+  averageAssessment: number
+}
+
 export interface RatingRepository {
   findById(ratingId: string): Promise<Rating | null>
+  getLastByReaderId(readerId: string): Promise<Rating>
   findMany(params: PaginationParams): Promise<Rating[]>
-  findManyBestRate(params: PaginationParams): Promise<Rating[]>
+  getBestMediaRate(): Promise<BookRating[]>
   findManyByBookId(bookId: string, params: PaginationParams): Promise<Rating[]>
   save(rating: Rating): Promise<Rating>
   create(rating: Rating): Promise<Rating>
