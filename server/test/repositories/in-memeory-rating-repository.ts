@@ -10,6 +10,13 @@ interface BookRating {
 export class InMemoryRatingRepository implements RatingRepository {
   public items: Rating[] = []
 
+  async findManyByReaderId(readerId: string): Promise<Rating[]> {
+    const ratings = this.items.filter(
+      (item) => item.readerId.toString() === readerId,
+    )
+    return ratings
+  }
+
   async getLastByReaderId(readerId: string) {
     const ratigns = this.items
       .filter((item) => item.readerId.toString() === readerId)

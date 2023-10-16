@@ -1,15 +1,15 @@
 import { InMemoryRatingRepository } from 'test/repositories/in-memeory-rating-repository'
 import { makeRating } from 'test/factories/make-rating'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { GetLastRatingOfReader } from './get-last-rating-of-reader'
+import { GetLastRatingOfReaderUseCase } from './get-last-rating-of-reader'
 
 let inMemoryRatingRepository: InMemoryRatingRepository
-let sut: GetLastRatingOfReader
+let sut: GetLastRatingOfReaderUseCase
 
 describe('Fetch Recent Rating', async () => {
   beforeEach(() => {
     inMemoryRatingRepository = new InMemoryRatingRepository()
-    sut = new GetLastRatingOfReader(inMemoryRatingRepository)
+    sut = new GetLastRatingOfReaderUseCase(inMemoryRatingRepository)
   })
 
   it('should be able to fetch rating by reader id', async () => {

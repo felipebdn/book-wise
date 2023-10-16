@@ -1,20 +1,20 @@
 import { Rating } from '../../enterprise/entities/rating'
 import { RatingRepository } from '../repositories/rating-repository'
 
-interface GetLastRatingOfReaderRequest {
+interface GetLastRatingOfReaderUseCaseRequest {
   readerId: string
 }
 
-interface GetLastRatingOfReaderResponse {
+interface GetLastRatingOfReaderUseCaseResponse {
   rating: Rating
 }
 
-export class GetLastRatingOfReader {
+export class GetLastRatingOfReaderUseCase {
   constructor(private ratingRepository: RatingRepository) {}
 
   async execute({
     readerId,
-  }: GetLastRatingOfReaderRequest): Promise<GetLastRatingOfReaderResponse> {
+  }: GetLastRatingOfReaderUseCaseRequest): Promise<GetLastRatingOfReaderUseCaseResponse> {
     const rating = await this.ratingRepository.getLastByReaderId(readerId)
 
     return { rating }

@@ -7,6 +7,7 @@ interface BookRating {
 }
 
 export interface RatingRepository {
+  findManyByReaderId(readerId: string): Promise<Rating[]>
   findById(ratingId: string): Promise<Rating | null>
   getLastByReaderId(readerId: string): Promise<Rating>
   findMany(params: PaginationParams): Promise<Rating[]>
