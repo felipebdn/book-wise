@@ -4,4 +4,5 @@ export interface BookRepository {
   create(book: Book): Promise<Book>
   findById(bookId: string): Promise<Book | null>
   findManyById(bookId: string[]): Promise<Book[]>
+  findManyByQuery(query: string): Promise<Book[]>
 }

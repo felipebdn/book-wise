@@ -21,9 +21,36 @@ describe('Fetch Ratings By Reader Id', async () => {
       inMemoryRatingRepository.create(rating)
     }
 
-    const { ratings } = await sut.execute({ readerId: 'reader-01' })
+    const { ratings } = await sut.execute({
+      readerId: 'reader-01',
+      amount: 5,
+      page: 1,
+    })
 
     expect(ratings).toHaveLength(5)
+
+    expect(ratings[0]).toEqual(
+      expect.objectContaining({
+        readerId: new UniqueEntityID('reader-01'),
+      }),
+    )
+  })
+  it('should be able to view per paginate fetch ratings by reader id', async () => {
+    for (let i = 0; i < 12; i++) {
+      const value = i % 2 === 0 ? 'reader-01' : 'reader-02'
+      const rating = makeRating({
+        readerId: new UniqueEntityID(value),
+      })
+      inMemoryRatingRepository.create(rating)
+    }
+
+    const { ratings } = await sut.execute({
+      readerId: 'reader-01',
+      amount: 5,
+      page: 2,
+    })
+
+    expect(ratings).toHaveLength(1)
 
     expect(ratings[0]).toEqual(
       expect.objectContaining({
