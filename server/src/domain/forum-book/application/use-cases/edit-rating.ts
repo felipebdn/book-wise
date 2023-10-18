@@ -1,5 +1,8 @@
+import { Either, left, right } from '@/core/either'
 import { Rating } from '../../enterprise/entities/rating'
 import { RatingRepository } from '../repositories/rating-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 interface EditRatingUseCaseRequest {
   authorId: string
@@ -8,9 +11,12 @@ interface EditRatingUseCaseRequest {
   assessment: number
 }
 
-interface EditRatingUseCaseResponse {
-  rating: Rating
-}
+type EditRatingUseCaseResponse = Either<
+  ResourceNotFoundError | NotAllowedError,
+  {
+    rating: Rating
+  }
+>
 
 export class EditRatingUseCase {
   constructor(private ratingRepository: RatingRepository) {}
@@ -24,11 +30,11 @@ export class EditRatingUseCase {
     const rating = await this.ratingRepository.findById(ratingId)
 
     if (!rating) {
-      throw new Error('Rating not found.')
+      return left(new ResourceNotFoundError())
     }
 
     if (authorId !== rating.readerId.toString()) {
-      throw new Error('Not allowed.')
+      return left(new NotAllowedError())
     }
 
     rating.assessment = assessment
@@ -36,6 +42,6 @@ export class EditRatingUseCase {
 
     await this.ratingRepository.save(rating)
 
-    return { rating }
+    return right({ rating })
   }
 }

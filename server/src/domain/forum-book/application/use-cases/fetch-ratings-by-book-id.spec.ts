@@ -18,13 +18,13 @@ describe('Fetch Ratings By Book Id', async () => {
       inMemoryRatingRepository.create(rating)
     }
 
-    const { ratings } = await sut.execute({
+    const result = await sut.execute({
       bookId: 'book-id-1',
       page: 2,
       amount: 20,
     })
 
-    expect(ratings).toHaveLength(2)
+    expect(result.value?.ratings).toHaveLength(2)
   })
   it('should be able to fetch ordenate ratings by book id', async () => {
     const rating1 = makeRating({
@@ -43,13 +43,13 @@ describe('Fetch Ratings By Book Id', async () => {
     inMemoryRatingRepository.create(rating2)
     inMemoryRatingRepository.create(rating3)
 
-    const { ratings } = await sut.execute({
+    const result = await sut.execute({
       bookId: 'book-id-1',
       page: 1,
       amount: 20,
     })
 
-    expect(ratings).toEqual([
+    expect(result.value?.ratings).toEqual([
       expect.objectContaining({ createdAt: new Date(2022, 0, 23) }),
       expect.objectContaining({ createdAt: new Date(2022, 0, 20) }),
       expect.objectContaining({ createdAt: new Date(2022, 0, 18) }),

@@ -18,12 +18,13 @@ describe('Fetch Recent Ratings', async () => {
       inMemoryRatingRepository.create(rating)
     }
 
-    const { ratings } = await sut.execute({
+    const result = await sut.execute({
       page: 2,
       amount: 20,
     })
 
-    expect(ratings).toHaveLength(2)
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.ratings).toHaveLength(2)
   })
   it('should be able to fetch ordenate recent ratings', async () => {
     const rating1 = makeRating({
@@ -42,12 +43,12 @@ describe('Fetch Recent Ratings', async () => {
     inMemoryRatingRepository.create(rating2)
     inMemoryRatingRepository.create(rating3)
 
-    const { ratings } = await sut.execute({
+    const result = await sut.execute({
       page: 1,
       amount: 20,
     })
 
-    expect(ratings).toEqual([
+    expect(result.value?.ratings).toEqual([
       expect.objectContaining({ createdAt: new Date(2022, 0, 23) }),
       expect.objectContaining({ createdAt: new Date(2022, 0, 20) }),
       expect.objectContaining({ createdAt: new Date(2022, 0, 18) }),

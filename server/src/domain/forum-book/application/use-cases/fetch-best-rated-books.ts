@@ -1,3 +1,4 @@
+import { Either, right } from '@/core/either'
 import { Book } from '../../enterprise/entities/book'
 import { BookRepository } from '../repositories/book-repository'
 import { RatingRepository } from '../repositories/rating-repository'
@@ -7,9 +8,12 @@ interface FetchBestRatedBooksRequest {
   amount: number
 }
 
-interface FetchBestRatedBooksResponse {
-  books: Book[] | null
-}
+type FetchBestRatedBooksResponse = Either<
+  null,
+  {
+    books: Book[] | null
+  }
+>
 
 export class FetchBestRatedBooks {
   constructor(
@@ -36,6 +40,6 @@ export class FetchBestRatedBooks {
       })
       .slice((page - 1) * amount, page * amount)
 
-    return { books }
+    return right({ books })
   }
 }

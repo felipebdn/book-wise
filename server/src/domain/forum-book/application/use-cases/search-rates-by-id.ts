@@ -1,3 +1,4 @@
+import { Either, right } from '@/core/either'
 import { Rating } from '../../enterprise/entities/rating'
 import { BookRepository } from '../repositories/book-repository'
 import { RatingRepository } from '../repositories/rating-repository'
@@ -9,9 +10,12 @@ interface SearchRatesByIdUseCaseRequest {
   query: string
 }
 
-interface SearchRatesByIdUseCaseResponse {
-  ratings: Rating[]
-}
+type SearchRatesByIdUseCaseResponse = Either<
+  null,
+  {
+    ratings: Rating[]
+  }
+>
 
 export class SearchRatesByIdUseCase {
   constructor(
@@ -36,6 +40,6 @@ export class SearchRatesByIdUseCase {
       { amount, page },
     )
 
-    return { ratings }
+    return right({ ratings })
   }
 }

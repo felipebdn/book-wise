@@ -76,9 +76,9 @@ describe('Edit rating', async () => {
       makeRating({ bookId: new UniqueEntityID('book-3'), assessment: 4 }),
     )
 
-    const { books } = await sut.execute({ amount: 3, page: 1 })
+    const result = await sut.execute({ amount: 3, page: 1 })
 
-    expect(books).toEqual([
+    expect(result.value?.books).toEqual([
       expect.objectContaining({ _id: new UniqueEntityID('book-3') }),
       expect.objectContaining({ _id: new UniqueEntityID('book-1') }),
       expect.objectContaining({ _id: new UniqueEntityID('book-2') }),

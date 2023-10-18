@@ -1,14 +1,19 @@
+import { Either, left, right } from '@/core/either'
 import { Rating } from '../../enterprise/entities/rating'
 import { RatingRepository } from '../repositories/rating-repository'
 import { ReaderRepository } from '../repositories/reader-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface GetLastRatingOfReaderUseCaseRequest {
   readerId: string
 }
 
-interface GetLastRatingOfReaderUseCaseResponse {
-  rating: Rating
-}
+type GetLastRatingOfReaderUseCaseResponse = Either<
+  ResourceNotFoundError,
+  {
+    rating: Rating
+  }
+>
 
 export class GetLastRatingOfReaderUseCase {
   constructor(
@@ -22,11 +27,11 @@ export class GetLastRatingOfReaderUseCase {
     const reader = await this.readerRepository.findById(readerId)
 
     if (!reader) {
-      throw new Error('Reader not found.')
+      return left(new ResourceNotFoundError())
     }
 
     const rating = await this.ratingRepository.getLastByReaderId(readerId)
 
-    return { rating }
+    return right({ rating })
   }
 }

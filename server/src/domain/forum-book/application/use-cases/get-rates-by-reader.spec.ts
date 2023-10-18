@@ -21,15 +21,15 @@ describe('Fetch Ratings By Reader Id', async () => {
       inMemoryRatingRepository.create(rating)
     }
 
-    const { ratings } = await sut.execute({
+    const result = await sut.execute({
       readerId: 'reader-01',
       amount: 5,
       page: 1,
     })
 
-    expect(ratings).toHaveLength(5)
+    expect(result.value?.ratings).toHaveLength(5)
 
-    expect(ratings[0]).toEqual(
+    expect(result.value?.ratings[0]).toEqual(
       expect.objectContaining({
         readerId: new UniqueEntityID('reader-01'),
       }),
@@ -44,15 +44,15 @@ describe('Fetch Ratings By Reader Id', async () => {
       inMemoryRatingRepository.create(rating)
     }
 
-    const { ratings } = await sut.execute({
+    const result = await sut.execute({
       readerId: 'reader-01',
       amount: 5,
       page: 2,
     })
 
-    expect(ratings).toHaveLength(1)
+    expect(result.value?.ratings).toHaveLength(1)
 
-    expect(ratings[0]).toEqual(
+    expect(result.value?.ratings[0]).toEqual(
       expect.objectContaining({
         readerId: new UniqueEntityID('reader-01'),
       }),

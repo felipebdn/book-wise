@@ -38,9 +38,9 @@ describe('Fetch Recent Rating', async () => {
     })
     inMemoryRatingRepository.create(rating2)
 
-    const { rating } = await sut.execute({ readerId: 'reader-01' })
+    const result = await sut.execute({ readerId: 'reader-01' })
 
-    expect(rating).toEqual(
+    expect(result.value.rating).toEqual(
       expect.objectContaining({
         assessment: 1,
       }),

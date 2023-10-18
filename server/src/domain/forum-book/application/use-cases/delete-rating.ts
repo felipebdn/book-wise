@@ -1,11 +1,17 @@
+import { Either, left, right } from '@/core/either'
 import { RatingRepository } from '../repositories/rating-repository'
+import { NotAllowedError } from './errors/not-allowed-error'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface DeleteRatingUseCaseRequest {
   authorId: string
   ratingId: string
 }
 
-interface DeleteRatingUseCaseResponse {}
+type DeleteRatingUseCaseResponse = Either<
+  NotAllowedError | ResourceNotFoundError,
+  object
+>
 
 export class DeleteRatingUseCase {
   constructor(private ratingRepository: RatingRepository) {}
@@ -17,15 +23,15 @@ export class DeleteRatingUseCase {
     const rating = await this.ratingRepository.findById(ratingId)
 
     if (!rating) {
-      throw new Error('Rating not found.')
+      return left(new ResourceNotFoundError())
     }
 
     if (authorId !== rating.readerId.toString()) {
-      throw new Error('Not allowed.')
+      return left(new NotAllowedError())
     }
 
     await this.ratingRepository.delete(rating)
 
-    return {}
+    return right({})
   }
 }

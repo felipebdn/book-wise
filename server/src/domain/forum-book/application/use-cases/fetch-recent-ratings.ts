@@ -1,3 +1,4 @@
+import { Either, right } from '@/core/either'
 import { Rating } from '../../enterprise/entities/rating'
 import { RatingRepository } from '../repositories/rating-repository'
 
@@ -6,9 +7,12 @@ interface FetchRecentRatingUseCaseRequest {
   amount: number
 }
 
-interface FetchRecentRatingUseCaseResponse {
-  ratings: Rating[]
-}
+type FetchRecentRatingUseCaseResponse = Either<
+  null,
+  {
+    ratings: Rating[]
+  }
+>
 
 export class FetchRecentRatingUseCase {
   constructor(private ratingRepository: RatingRepository) {}
@@ -19,6 +23,6 @@ export class FetchRecentRatingUseCase {
   }: FetchRecentRatingUseCaseRequest): Promise<FetchRecentRatingUseCaseResponse> {
     const ratings = await this.ratingRepository.findMany({ amount, page })
 
-    return { ratings }
+    return right({ ratings })
   }
 }

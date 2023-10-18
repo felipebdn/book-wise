@@ -1,3 +1,4 @@
+import { Either, right } from '@/core/either'
 import { Rating } from '../../enterprise/entities/rating'
 import { RatingRepository } from '../repositories/rating-repository'
 
@@ -7,9 +8,12 @@ interface GetRatesByReaderUseCaseRequest {
   amount: number
 }
 
-interface GetRatesByReaderUseCaseResponse {
-  ratings: Rating[]
-}
+type GetRatesByReaderUseCaseResponse = Either<
+  null,
+  {
+    ratings: Rating[]
+  }
+>
 
 export class GetRatesByReaderUseCase {
   constructor(private ratingRepository: RatingRepository) {}
@@ -24,6 +28,6 @@ export class GetRatesByReaderUseCase {
       page,
     })
 
-    return { ratings }
+    return right({ ratings })
   }
 }

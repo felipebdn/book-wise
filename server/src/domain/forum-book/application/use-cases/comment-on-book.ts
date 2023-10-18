@@ -2,6 +2,8 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Rating } from '../../enterprise/entities/rating'
 import { RatingRepository } from '../repositories/rating-repository'
 import { BookRepository } from '../repositories/book-repository'
+import { Either, left, right } from '@/core/either'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface CreateRatingUseCaseRequest {
   bookId: string
@@ -10,9 +12,12 @@ interface CreateRatingUseCaseRequest {
   assessment: number
 }
 
-interface CreateRatingUseCaseResponse {
-  rating: Rating
-}
+type CreateRatingUseCaseResponse = Either<
+  ResourceNotFoundError,
+  {
+    rating: Rating
+  }
+>
 
 export class CreateRatingUseCase {
   constructor(
@@ -29,7 +34,7 @@ export class CreateRatingUseCase {
     const book = await this.bookRepository.findById(bookId)
 
     if (!book) {
-      throw new Error('Book not found.')
+      return left(new ResourceNotFoundError())
     }
 
     const createRating = Rating.create({
@@ -41,6 +46,6 @@ export class CreateRatingUseCase {
 
     const rating = await this.ratingRepository.create(createRating)
 
-    return { rating }
+    return right({ rating })
   }
 }

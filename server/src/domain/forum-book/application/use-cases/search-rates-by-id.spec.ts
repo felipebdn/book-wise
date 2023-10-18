@@ -52,13 +52,13 @@ describe('Search Ratins By Query', async () => {
     })
     await inMemoryRatingRepository.create(rating3)
 
-    const { ratings } = await sut.execute({
+    const result = await sut.execute({
       query: ' example-1 ',
       amount: 5,
       page: 1,
       readerId: 'reader-01',
     })
 
-    expect(ratings).toHaveLength(2)
+    expect(result.value?.ratings).toHaveLength(2)
   })
 })

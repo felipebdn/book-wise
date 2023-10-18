@@ -2,6 +2,7 @@ import { InMemoryRatingRepository } from 'test/repositories/in-memory-rating-rep
 import { makeRating } from 'test/factories/make-rating'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { EditRatingUseCase } from './edit-rating'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 let inMemoryRatingRepository: InMemoryRatingRepository
 let sut: EditRatingUseCase
@@ -41,13 +42,14 @@ describe('Edit rating', async () => {
 
     await inMemoryRatingRepository.create(rating)
 
-    expect(() => {
-      return sut.execute({
-        authorId: 'author-2',
-        assessment: 1,
-        comment: 'example comment 1',
-        ratingId: 'rating-id-1',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      authorId: 'author-2',
+      assessment: 1,
+      comment: 'example comment 1',
+      ratingId: 'rating-id-1',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })
