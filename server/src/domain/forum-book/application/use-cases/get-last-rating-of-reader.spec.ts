@@ -40,10 +40,13 @@ describe('Fetch Recent Rating', async () => {
 
     const result = await sut.execute({ readerId: 'reader-01' })
 
-    expect(result.value.rating).toEqual(
-      expect.objectContaining({
-        assessment: 1,
-      }),
-    )
+    expect(result.isRight()).toBe(true)
+    if (result.isRight()) {
+      expect(result.value.rating).toEqual(
+        expect.objectContaining({
+          assessment: 1,
+        }),
+      )
+    }
   })
 })

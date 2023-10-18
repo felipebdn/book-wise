@@ -30,6 +30,9 @@ describe('Comment rating on book', async () => {
     })
 
     expect(result.isRight()).toBe(true)
-    expect(result.value.rating.comment).toEqual('Rating of book')
+
+    if (result.isRight()) {
+      expect(result.value.rating.comment).toEqual('Rating of book')
+    }
   })
 })
