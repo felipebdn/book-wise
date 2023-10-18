@@ -1,4 +1,4 @@
-import { InMemoryRatingRepository } from 'test/repositories/in-memeory-rating-repository'
+import { InMemoryRatingRepository } from 'test/repositories/in-memory-rating-repository'
 import { DeleteRatingUseCase } from './delete-rating'
 import { makeRating } from 'test/factories/make-rating'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'

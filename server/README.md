@@ -9,8 +9,8 @@
 - [x] [ ] Deve ser possível fazer uma avaliação de um livro.2
 - [x] [ ] Deve ser possível editar uma avaliação.3
 - [x] [ ] Deve ser possível excluir uma avaliação.4
-- [ ] [ ] Deve ser possível visualizar as avaliações de outras pessoas em seus perfis.
-- [ ] [ ] Deve ser possível pesquisar por livros avaliados.
+- [x] [ ] Deve ser possível visualizar as avaliações de outras pessoas em seus perfis.
+- [x] [ ] Deve ser possível pesquisar por livros avaliados.
 
 # Regras de negócio
   DDD ???

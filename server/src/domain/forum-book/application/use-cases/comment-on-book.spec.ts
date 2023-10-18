@@ -1,4 +1,4 @@
-import { InMemoryRatingRepository } from 'test/repositories/in-memeory-rating-repository'
+import { InMemoryRatingRepository } from 'test/repositories/in-memory-rating-repository'
 import { CreateRatingUseCase } from './comment-on-book'
 import { InMemoryBookRepository } from 'test/repositories/in-memory-book-repository'
 import { makeBook } from 'test/factories/make-book'
