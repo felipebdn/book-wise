@@ -11,7 +11,7 @@ export function makeReader(
 ) {
   const reader = Reader.create(
     {
-      cover: faker.lorem.sentence({ min: 10, max: 10 }),
+      coverUrlSmall: faker.lorem.sentence({ min: 10, max: 10 }),
       name: faker.person.firstName(),
       ...override,
     },

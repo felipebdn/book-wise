@@ -7,7 +7,7 @@ export class InMemoryBookRepository implements BookRepository {
   async findManyByQuery(query: string) {
     const regex = new RegExp(query)
     const books = this.items.filter((item) => {
-      if (regex.test(item.title) || regex.test(item.author.join(','))) {
+      if (regex.test(item.title) || regex.test(item.authors.join(','))) {
         return item
       }
       return null

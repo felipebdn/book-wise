@@ -21,15 +21,15 @@ describe('Search Ratins By Query', async () => {
 
   it('should be able to search by query', async () => {
     const book1 = makeBook({
-      author: ['author example'],
+      authors: ['authors example'],
       title: 'example-1',
     })
     const book2 = makeBook({
-      author: ['author example'],
+      authors: ['authors example'],
       title: 'example-1',
     })
     const book3 = makeBook({
-      author: ['author example'],
+      authors: ['authors example'],
       title: 'example-1',
     })
     const bookCreated1 = await inMemoryBookRepository.create(book1)

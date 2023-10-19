@@ -39,7 +39,7 @@ npm manifest:
       "lint-fix": "eslint src --ext .ts --fix"
     },
     "keywords": [],
-    "author": "",
+    "authors": "",
     "license": "ISC",
     "devDependencies": {
       "@rocketseat/eslint-config": "^2.1.0",

@@ -6,7 +6,7 @@ export interface ReaderProps {
   name: string
   createdAt: Date
   updatedAt?: Date
-  cover: string
+  coverUrlSmall: string
 }
 
 export class Reader extends Entity<ReaderProps> {
@@ -22,8 +22,8 @@ export class Reader extends Entity<ReaderProps> {
     return this.props.updatedAt
   }
 
-  get cover() {
-    return this.props.cover
+  get coverUrlSmall() {
+    return this.props.coverUrlSmall
   }
 
   static create(

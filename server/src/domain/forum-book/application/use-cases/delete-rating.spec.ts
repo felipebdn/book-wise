@@ -15,19 +15,19 @@ describe('Create delete rating', async () => {
 
   it('should be able to delete a rating', async () => {
     const rating = makeRating(
-      { readerId: new UniqueEntityID('author-1') },
+      { readerId: new UniqueEntityID('authors-1') },
       new UniqueEntityID('rating-id-1'),
     )
 
     await inMemoryRatingRepository.create(rating)
 
-    await sut.execute({ ratingId: 'rating-id-1', authorId: 'author-1' })
+    await sut.execute({ ratingId: 'rating-id-1', authorId: 'authors-1' })
 
     expect(inMemoryRatingRepository.items).toHaveLength(0)
   })
   it('should not be able to delete a rating from another user', async () => {
     const rating = makeRating(
-      { readerId: new UniqueEntityID('author-1') },
+      { readerId: new UniqueEntityID('authors-1') },
       new UniqueEntityID('rating-id-1'),
     )
 
@@ -35,7 +35,7 @@ describe('Create delete rating', async () => {
 
     const result = await sut.execute({
       ratingId: 'rating-id-1',
-      authorId: 'author-2',
+      authorId: 'authors-2',
     })
 
     expect(result.isLeft()).toBe(true)

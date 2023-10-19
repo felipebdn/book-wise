@@ -4,11 +4,12 @@ import { Optional } from '@/core/types/optional'
 
 export interface BookProps {
   title: string
-  author: string[]
+  authors: string[]
   categories: string[]
-  pages: number
+  pagesCount: number
   createdAt: Date
-  cover: string
+  coverUrlSmall: string
+  coverUrlMedium: string
 }
 
 export class Book extends Entity<BookProps> {
@@ -16,24 +17,28 @@ export class Book extends Entity<BookProps> {
     return this.props.title
   }
 
-  get author() {
-    return this.props.author
+  get authors() {
+    return this.props.authors
   }
 
   get categories() {
     return this.props.categories
   }
 
-  get pages() {
-    return this.props.pages
+  get pagesCount() {
+    return this.props.pagesCount
   }
 
   get createdAt() {
     return this.props.createdAt
   }
 
-  get cover() {
-    return this.props.cover
+  get coverUrlSmall() {
+    return this.props.coverUrlSmall
+  }
+
+  get coverUrlMedium() {
+    return this.props.coverUrlMedium
   }
 
   static create(props: Optional<BookProps, 'createdAt'>, id?: UniqueEntityID) {

@@ -15,7 +15,7 @@ describe('Edit rating', async () => {
 
   it('should be able to edit a rating', async () => {
     const rating = makeRating(
-      { readerId: new UniqueEntityID('author-1') },
+      { readerId: new UniqueEntityID('authors-1') },
       new UniqueEntityID('rating-id-1'),
     )
 
@@ -23,7 +23,7 @@ describe('Edit rating', async () => {
 
     await sut.execute({
       ratingId: rating.id.toString(),
-      authorId: 'author-1',
+      authorId: 'authors-1',
       assessment: 1,
       comment: 'example comment 1',
     })
@@ -36,14 +36,14 @@ describe('Edit rating', async () => {
   })
   it('should not be able to edit a rating from another user', async () => {
     const rating = makeRating(
-      { readerId: new UniqueEntityID('author-1') },
+      { readerId: new UniqueEntityID('authors-1') },
       new UniqueEntityID('rating-id-1'),
     )
 
     await inMemoryRatingRepository.create(rating)
 
     const result = await sut.execute({
-      authorId: 'author-2',
+      authorId: 'authors-2',
       assessment: 1,
       comment: 'example comment 1',
       ratingId: 'rating-id-1',

@@ -10,7 +10,7 @@
     "lint-fix": "eslint src --ext .ts --fix"
   },
   "keywords": [],
-  "author": "",
+  "authors": "",
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^8.1.0",
