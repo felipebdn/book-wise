@@ -3,19 +3,19 @@ import { Book } from '../../enterprise/entities/book'
 import { BookRepository } from '../repositories/book-repository'
 import { RatingRepository } from '../repositories/rating-repository'
 
-interface FetchBestRatedBooksRequest {
+interface FetchBestRatedBooksUseCaseRequest {
   page: number
   amount: number
 }
 
-type FetchBestRatedBooksResponse = Either<
+type FetchBestRatedBooksUseCaseResponse = Either<
   null,
   {
     books: Book[] | null
   }
 >
 
-export class FetchBestRatedBooks {
+export class FetchBestRatedBooksUseCase {
   constructor(
     private bookRepository: BookRepository,
     private ratingRepository: RatingRepository,
@@ -24,7 +24,7 @@ export class FetchBestRatedBooks {
   async execute({
     amount,
     page,
-  }: FetchBestRatedBooksRequest): Promise<FetchBestRatedBooksResponse> {
+  }: FetchBestRatedBooksUseCaseRequest): Promise<FetchBestRatedBooksUseCaseResponse> {
     const booksIds = await this.ratingRepository.getBestMediaRate()
 
     const getBooks = await this.bookRepository.findManyById(

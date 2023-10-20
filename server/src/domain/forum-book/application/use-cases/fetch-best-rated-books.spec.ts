@@ -1,19 +1,19 @@
 import { InMemoryRatingRepository } from 'test/repositories/in-memory-rating-repository'
 import { InMemoryBookRepository } from 'test/repositories/in-memory-book-repository'
-import { FetchBestRatedBooks } from './fetch-best-rated-books'
+import { FetchBestRatedBooksUseCase } from './fetch-best-rated-books'
 import { makeBook } from 'test/factories/make-book'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { makeRating } from 'test/factories/make-rating'
 
 let inMemoryRatingRepository: InMemoryRatingRepository
 let inMemoryBookRepository: InMemoryBookRepository
-let sut: FetchBestRatedBooks
+let sut: FetchBestRatedBooksUseCase
 
 describe('Edit rating', async () => {
   beforeEach(() => {
     inMemoryRatingRepository = new InMemoryRatingRepository()
     inMemoryBookRepository = new InMemoryBookRepository()
-    sut = new FetchBestRatedBooks(
+    sut = new FetchBestRatedBooksUseCase(
       inMemoryBookRepository,
       inMemoryRatingRepository,
     )

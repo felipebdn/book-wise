@@ -1,8 +1,20 @@
+import { PaginationParams } from '@/core/repositories/pagination-params'
 import { BookRepository } from '@/domain/forum-book/application/repositories/book-repository'
 import { Book } from '@/domain/forum-book/enterprise/entities/book'
 
 export class InMemoryBookRepository implements BookRepository {
   public items: Book[] = []
+
+  async findManyByCategory(
+    category: string,
+    { amount, page }: PaginationParams,
+  ) {
+    const books = this.items
+      .filter((item) => item.categories.includes(category))
+      .sort((a, b) => b.createdAt.getDate() - a.createdAt.getDate())
+      .slice((page - 1) * amount, page * amount)
+    return books
+  }
 
   async findManyByQuery(query: string) {
     const regex = new RegExp(query)
